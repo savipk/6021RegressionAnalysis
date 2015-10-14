@@ -30,7 +30,7 @@ y.coord <- runif(10^5, -r, 750+r)
 coord <- as.data.frame(cbind(x.coord, y.coord))
 
 # Get the TBA estimate for each
-start <- proc.time()   # A slow example
+start <- proc.time()
 S <- apply(coord, 1, get.t.hat)
 proc.time() - start
 
@@ -124,7 +124,7 @@ get.t.hat.2 <- function(x){
   return(t.hat)
 }
 
-start <- proc.time()   # A slow example
+start <- proc.time()  
 # Generate 10^5 x and y coordinates
 x.coord.2 <- runif(10^5, 0, 750)
 y.coord.2 <- runif(10^5, 0, 750)
@@ -152,15 +152,15 @@ get.t.hat.3 <- function(x, r=37){
     t.hat <- (750^2/(pi*37^2))*sum(s.1)
     return(t.hat)
   } else{
-    new.coord <- runif(2, 0, 750)
     nr <- sqrt((pi*r^2-ol)/pi)
+    new.coord <- runif(2, -nr, 750+nr)
     t.hat <- (750^2/(pi*37^2))*sum(s.1) + get.t.hat.3(new.coord, nr)
     return(t.hat)
   }
   
 }
 
-start <- proc.time()   # A slow example
+start <- proc.time() 
 # Generate 10^5 x and y coordinates
 x.coord.3 <- runif(10^5, -r, 750+r)
 y.coord.3 <- runif(10^5, -r, 750+r)
@@ -168,7 +168,6 @@ coord.3 <- as.data.frame(cbind(x.coord.3, y.coord.3))
 
 # Get the TBA estimate for each
 S.3 <- apply(coord.3, 1, get.t.hat.3)
-S.3
 
 # Get percentage bias
 PB.3 <- 100*(mean(S.3) - 311.906)/311.906
