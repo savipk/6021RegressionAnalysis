@@ -1,5 +1,11 @@
 # Team 6 ------------------------------------------------------------------
 
+# Hope McIntyre
+# Jason Adams
+# Savi Kuriakose
+
+# 10/19/15
+
 # Read in the trees data
 trees <- read.csv("trees.csv", header=T)
 
@@ -12,6 +18,9 @@ r <- 37
 # Define area of circle
 a <- pi * r^2
 
+# True basil area
+t <- 311.906
+
 # Define the area of the plot
 A.star<- (750 + 2*r)^2 
 
@@ -22,8 +31,6 @@ get.t.hat <- function(x){
   return(t.hat)
 }
 
-
-
 # Generate 10^5 x and y coordinates
 x.coord <- runif(10^5, -r, 750+r)
 y.coord <- runif(10^5, -r, 750+r)
@@ -31,18 +38,16 @@ coord <- as.data.frame(cbind(x.coord, y.coord))
 
 # Get the TBA estimate for each
 start <- proc.time()
-S <- apply(coord, 1, get.t.hat)
+S.1 <- apply(coord, 1, get.t.hat)
 proc.time() - start
 
 # Get percentage bias
-PB <- 100*(mean(S) - 311.906)/311.906
-PB
+PB.1 <- 100*(mean(S.1) - t)/t
+PB.1
 
 # Get percentage root mean square error
-PRMSE <- 100*sqrt(var(S))/311.906
-PRMSE
-
-
+PRMSE.1 <- 100*sqrt(var(S.1))/t
+PRMSE.1
 
 
 # Part 2: Measure Pi Method -----------------------------------------------
@@ -116,7 +121,6 @@ overlap.area <- function(xt,yt,rl) {
   return(area)
 }
 
-
 # New get t hat function
 get.t.hat.2 <- function(x){
   s.1 <- trees$ba[(trees$x - x[1])^2 + (trees$y - x[2])^2 < r^2]
@@ -124,24 +128,25 @@ get.t.hat.2 <- function(x){
   return(t.hat)
 }
 
-start <- proc.time()  
 # Generate 10^5 x and y coordinates
 x.coord.2 <- runif(10^5, 0, 750)
 y.coord.2 <- runif(10^5, 0, 750)
 coord.2 <- as.data.frame(cbind(x.coord.2, y.coord.2))
 
 # Get the TBA estimate for each
+start <- proc.time() 
 S.2 <- apply(coord.2, 1, get.t.hat.2)
+proc.time() - start
 
 # Get percentage bias
-PB.2 <- 100*(mean(S.2) - 311.906)/311.906
+PB.2 <- 100*(mean(S.2) - t)/t
 PB.2
 
 # Get percentage root mean square error
-PRMSE.2 <- 100*sqrt(var(S.2))/311.906
+PRMSE.2 <- 100*sqrt(var(S.2))/t
 PRMSE.2
 
-proc.time() - start
+
 # Part 3: Repeated Masuyama -----------------------------------------------
 
 # New get t hat function
@@ -160,21 +165,21 @@ get.t.hat.3 <- function(x, r=37){
   
 }
 
-start <- proc.time() 
 # Generate 10^5 x and y coordinates
 x.coord.3 <- runif(10^5, -r, 750+r)
 y.coord.3 <- runif(10^5, -r, 750+r)
 coord.3 <- as.data.frame(cbind(x.coord.3, y.coord.3))
 
 # Get the TBA estimate for each
+start <- proc.time() 
 S.3 <- apply(coord.3, 1, get.t.hat.3)
+proc.time() - start
 
 # Get percentage bias
-PB.3 <- 100*(mean(S.3) - 311.906)/311.906
+PB.3 <- 100*(mean(S.3) - t)/t
 PB.3
 
 # Get percentage root mean square error
-PRMSE.3 <- 100*sqrt(var(S.3))/311.906
+PRMSE.3 <- 100*sqrt(var(S.3))/t
 PRMSE.3
 
-proc.time() - start
