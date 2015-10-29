@@ -37,17 +37,18 @@ y.coord <- runif(10^5, -r, 750+r)
 coord <- as.data.frame(cbind(x.coord, y.coord))
 
 # Get the TBA estimate for each
+print("Part 1: Masuyama's Method Output:")
 start <- proc.time()
 S.1 <- apply(coord, 1, get.t.hat)
 proc.time() - start
 
 # Get percentage bias
 PB.1 <- 100*(mean(S.1) - t)/t
-PB.1
+print(paste('Percentage Bias:', round(PB.1,5),"%"))
 
 # Get percentage root mean square error
 PRMSE.1 <- 100*sqrt(var(S.1))/t
-PRMSE.1
+print(paste('Percentage RMSE:', round(PRMSE.1,5),"%"))
 
 
 # Part 2: Measure Pi Method -----------------------------------------------
@@ -134,17 +135,18 @@ y.coord.2 <- runif(10^5, 0, 750)
 coord.2 <- as.data.frame(cbind(x.coord.2, y.coord.2))
 
 # Get the TBA estimate for each
+print("Part 2: Measure Pi(i) Method Output:")
 start <- proc.time() 
 S.2 <- apply(coord.2, 1, get.t.hat.2)
 proc.time() - start
 
 # Get percentage bias
 PB.2 <- 100*(mean(S.2) - t)/t
-PB.2
+print(paste('Percentage Bias:', round(PB.2,5),"%"))
 
 # Get percentage root mean square error
 PRMSE.2 <- 100*sqrt(var(S.2))/t
-PRMSE.2
+print(paste('Percentage RMSE:', round(PRMSE.2,5),"%"))
 
 
 # Part 3: Repeated Masuyama -----------------------------------------------
@@ -171,15 +173,16 @@ y.coord.3 <- runif(10^5, -r, 750+r)
 coord.3 <- as.data.frame(cbind(x.coord.3, y.coord.3))
 
 # Get the TBA estimate for each
+print("Part 3: Repeated Masuyama")
 start <- proc.time() 
 S.3 <- apply(coord.3, 1, get.t.hat.3)
 proc.time() - start
 
 # Get percentage bias
 PB.3 <- 100*(mean(S.3) - t)/t
-PB.3
+print(paste('Percentage Bias:', round(PB.3,5),"%"))
 
 # Get percentage root mean square error
 PRMSE.3 <- 100*sqrt(var(S.3))/t
-PRMSE.3
+print(paste('Percentage RMSE:', round(PRMSE.3,5),"%"))
 
