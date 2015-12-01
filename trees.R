@@ -3,6 +3,7 @@
 # Hope McIntyre
 # Jason Adams
 # Savi Kuriakose
+# James Kim
 
 # 10/19/15
 
